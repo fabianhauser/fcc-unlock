@@ -1,11 +1,15 @@
 {
-  inputs = { nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11"; };
+  inputs = {
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+  };
 
-  outputs = { self, nixos-stable, ... }@inputs:
+  outputs =
+    { self, nixos-stable, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixos-stable { inherit system; };
-    in {
+    in
+    {
       # Executed by `nix flake check`
       checks."<system>"."<name>" = derivation;
       # Executed by `nix build .#<name>`
@@ -20,7 +24,10 @@
 
         # Dependencies
         # See: https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies
-        buildInputs = with pkgs; [ coreutils gcc ];
+        buildInputs = with pkgs; [
+          coreutils
+          gcc
+        ];
 
         # Build Phases
         # See: https://nixos.org/nixpkgs/manual/#sec-stdenv-phases
